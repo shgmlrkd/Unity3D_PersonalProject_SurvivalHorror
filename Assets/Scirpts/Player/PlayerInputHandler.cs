@@ -76,10 +76,18 @@ public class PlayerInputHandler : MonoBehaviour
         isMoving = nextIsMoving;
 
         OnMove?.Invoke(isMoving);
+
+        UpdateRunState();
     }
     
     // Shift 입력 시 뛰기 애니메이션 이벤트
     private void RunChanged(InputAction.CallbackContext context)
+    {
+        UpdateRunState();
+    }
+
+    // 이동 상태와 Shift 입력 상태를 확인하여 달리기 상태 갱신
+    private void UpdateRunState()
     {
         bool shouldRun = isMoving && runAction.IsPressed();
 
