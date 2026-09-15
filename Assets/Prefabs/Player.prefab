@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
   animator: {fileID: 5304199661888432277}
+  playerMove: {fileID: 335988811142414305}
   inputHandler: {fileID: 6095366156191186129}
 --- !u!114 &335988811142414305
 MonoBehaviour:
@@ -252,7 +253,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fc915dabf83c82247bd26de2b375126c, type: 3}
   m_Controller: {fileID: 9100000, guid: 4140282e67263574889a13074b2f668f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
