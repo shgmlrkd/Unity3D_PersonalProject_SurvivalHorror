@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6674836505114384108}
   - component: {fileID: 350936204223775527}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ScanCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 2901771915795552990}
   - component: {fileID: 2636751820215433389}
   - component: {fileID: 532301266036336349}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Airhorn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

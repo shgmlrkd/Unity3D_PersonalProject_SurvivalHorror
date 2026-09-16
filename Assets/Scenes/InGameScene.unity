@@ -3635,6 +3635,10 @@ PrefabInstance:
       propertyPath: playerMove
       value: 
       objectReference: {fileID: 1523004537}
+    - target: {fileID: 2610256870685466718, guid: 64905c3a77a08944d8d65422cd5e7f0f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6201541540075928554, guid: 64905c3a77a08944d8d65422cd5e7f0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3678,7 +3682,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7139627987821230853, guid: 64905c3a77a08944d8d65422cd5e7f0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1268763950}
   m_SourcePrefab: {fileID: 100100000, guid: 64905c3a77a08944d8d65422cd5e7f0f, type: 3}
 --- !u!4 &594252302 stripped
 Transform:
@@ -3749,6 +3756,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f1cd7258cd106e542b725d7f6b0ff863, type: 3}
   m_PrefabInstance: {fileID: 5000001161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &604471626 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4838090180962190752, guid: 64905c3a77a08944d8d65422cd5e7f0f, type: 3}
+  m_PrefabInstance: {fileID: 593677239}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &605405986 stripped
 Transform:
@@ -7643,6 +7655,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f1cd7258cd106e542b725d7f6b0ff863, type: 3}
   m_PrefabInstance: {fileID: 5000000175}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1268763948 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7139627987821230853, guid: 64905c3a77a08944d8d65422cd5e7f0f, type: 3}
+  m_PrefabInstance: {fileID: 593677239}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1268763950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268763948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef2f90043325a644bf1cc9f1c5746b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScanWave
+  waveSphere: {fileID: 604471626}
+  scrapLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  scanAngle: 120
+  maxRadius: 20
+  duration: 1
 --- !u!4 &1269093276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f1cd7258cd106e542b725d7f6b0ff863, type: 3}
