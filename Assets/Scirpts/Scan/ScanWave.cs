@@ -12,17 +12,22 @@ public class ScanWave : MonoBehaviour
     [SerializeField]
     private LayerMask scrapLayer;
 
-    [SerializeField]
-    [Range(0.0f, 360.0f)]
-    private float scanAngle = 120.0f;
+    private float horizontalScanAngle = 90.0f;
+
+    private float verticalScanAngle = 60.0f;
 
     [SerializeField]
-    private float maxRadius = 20.0f;
+    private float maxRadius = 15.0f;
 
     [SerializeField]
     private float duration = 1.0f;
 
     private Coroutine scanCoroutine;
+
+    private Transform camTransform;
+
+    private Vector3 scanOriginPosition;
+    private Quaternion scanOriginRotation;
 
     private readonly Collider[] scanResults = new Collider[30];
 
@@ -31,6 +36,8 @@ public class ScanWave : MonoBehaviour
 
     private void Awake()
     {
+        camTransform = Camera.main.transform;
+
         if (waveSphere == null)
         {
             waveSphere = GetComponentInChildren<Transform>();
@@ -59,6 +66,9 @@ public class ScanWave : MonoBehaviour
 
     private IEnumerator ScanCoroutine()
     {
+        scanOriginPosition = camTransform.position;
+        scanOriginRotation = camTransform.rotation;
+
         float elapsedTime = 0.0f;
 
         scannedScraps.Clear();
@@ -99,14 +109,8 @@ public class ScanWave : MonoBehaviour
                 continue;
             }
 
-            // 카메라 -> 고철 방향
-            Vector3 driectionToScrap = (target.transform.position - Camera.main.transform.position).normalized;
-
-            // 카메라 정면과 고철 방향 사이의 각도
-            float angle = Vector3.Angle(Camera.main.transform.forward, driectionToScrap);
-
-            // 시야각 밖이면 제외
-            if(angle > scanAngle * 0.5f)
+            // 고철이 범위안에 존재하는가
+            if(!IsWithinScanAngle(scrap.transform.position))
             {
                 continue;
             }
@@ -119,5 +123,35 @@ public class ScanWave : MonoBehaviour
 
             Debug.Log($"스캔 발견 : {scrap.name}");
         }
+    }
+
+    // 고철이 범위 안에 존재하는지 체크
+    private bool IsWithinScanAngle(Vector3 targetPosition)
+    {
+        Vector3 direction = (targetPosition - scanOriginPosition).normalized;
+
+        Vector3 localDirection = Quaternion.Inverse(scanOriginRotation) * direction;
+
+        // 카메라 뒤에 있는 고철은 제외
+        if (localDirection.z <= 0.0f)
+        {
+            return false;
+        }
+
+        float horizontalAngle = Mathf.Atan2(Mathf.Abs(localDirection.x), localDirection.z) * Mathf.Rad2Deg;
+
+        float verticalAngle = Mathf.Atan2(Mathf.Abs(localDirection.y), localDirection.z) * Mathf.Rad2Deg;
+
+        if (horizontalAngle > horizontalScanAngle * 0.5f)
+        {
+            return false;
+        }
+
+        if (verticalAngle > verticalScanAngle * 0.5f)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

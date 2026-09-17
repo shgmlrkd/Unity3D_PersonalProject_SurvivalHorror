@@ -6,8 +6,21 @@ public abstract class Item : MonoBehaviour, IInteractable
 
     public string ItemName => itemData.ItemName;
 
+    public float InteractionDuration => 0.0f;
+
+    // 아이템 상호작용
     public void Interact()
     {
-        // 상호작용
+        ItemDataController.Instance.SendItemData(this);
+    }
+
+    public void PickUp()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Drop()
+    { 
+
     }
 }

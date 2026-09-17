@@ -4,6 +4,12 @@ using UnityEngine;
 public abstract class ItemData : ScriptableObject
 {
     [SerializeField]
+    private ItemType itemType;
+
+    [SerializeField]
+    private int id;
+
+    [SerializeField]
     private string itemName;
 
     [SerializeField]
@@ -21,6 +27,8 @@ public abstract class ItemData : ScriptableObject
     [SerializeField]
     private AudioClip dropSound;
 
+    public ItemType ItemType => itemType;
+    public int ID => id;
     public string ItemName => itemName;
     public float Weight => weight;
     public bool IsTwoHand => isTwoHand;
