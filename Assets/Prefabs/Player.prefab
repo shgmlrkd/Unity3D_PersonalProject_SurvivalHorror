@@ -14,10 +14,11 @@ GameObject:
   - component: {fileID: 6149679514172769531}
   - component: {fileID: 6095366156191186129}
   - component: {fileID: 6058418844437851654}
+  - component: {fileID: 2917330116838287168}
   - component: {fileID: 3344350499941660704}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +112,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512b9963afe35a247b3a8d0d37284ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+--- !u!114 &2917330116838287168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375316164150188067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aac3c9e9bb44f04b9f3b71deac09cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControlLock
+  playerInteract: {fileID: 3881489611019804323}
+  playerMove: {fileID: 335988811142414305}
+  cameraMove: {fileID: 0}
 --- !u!143 &3344350499941660704
 CharacterController:
   m_ObjectHideFlags: 0
