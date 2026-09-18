@@ -6,21 +6,27 @@ public class PlayerInteract : MonoBehaviour
 {
     [SerializeField]
     private LayerMask interactLayer;
-   
+
     [SerializeField]
     private float interactDistance = 3.0f;
 
     private Transform camTransform;
     private Collider currentCollider;
-
     private IInteractable currentInteractable;
 
     private float interactTimer;
     private bool isInteractComplete;
 
+    public event Action<IInteractable> OnInteractableChanged;
+    public event Action OnInteractionStarted;
+
     private void Awake()
     {
         camTransform = Camera.main.transform;
+    }
+    private void OnDisable()
+    {
+        ClearInteractable();
     }
 
     private void Update()
@@ -33,7 +39,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, interactDistance, interactLayer))
         {
-            // 계속 같은 Collider를 보고 있다면 다시 찾지 않음
+            // 같은 Collider를 계속 바라보고 있으면 다시 탐색하지 않음
             if (currentCollider == hit.collider)
             {
                 return;
@@ -44,6 +50,8 @@ public class PlayerInteract : MonoBehaviour
 
             ResetInteract();
 
+            OnInteractableChanged?.Invoke(currentInteractable);
+
             return;
         }
 
@@ -53,6 +61,8 @@ public class PlayerInteract : MonoBehaviour
             currentInteractable = null;
 
             ResetInteract();
+
+            OnInteractableChanged?.Invoke(null);
         }
     }
 
@@ -68,21 +78,20 @@ public class PlayerInteract : MonoBehaviour
         {
             if (Keyboard.current.eKey.wasPressedThisFrame)
             {
-                currentInteractable.Interact();
-                print("상호작용");
+                StartInteraction();
             }
 
             return;
         }
 
-        // 문 열기 상호작용
+        // 일정 시간 동안 E 키를 누르는 상호작용
         if (Keyboard.current.eKey.isPressed)
         {
             interactTimer += Time.deltaTime;
 
             if (!isInteractComplete && interactTimer >= currentInteractable.InteractionDuration)
             {
-                currentInteractable.Interact();
+                StartInteraction();
 
                 isInteractComplete = true;
             }
@@ -92,6 +101,27 @@ public class PlayerInteract : MonoBehaviour
         {
             ResetInteract();
         }
+    }
+
+    private void ClearInteractable()
+    {
+        bool hadInteractable = currentCollider != null || currentInteractable != null;
+
+        currentCollider = null;
+        currentInteractable = null;
+
+        ResetInteract();
+
+        if (hadInteractable)
+        {
+            OnInteractableChanged?.Invoke(null);
+        }
+    }
+
+    private void StartInteraction()
+    {
+        OnInteractionStarted?.Invoke();
+        currentInteractable.Interact();
     }
 
     private void ResetInteract()
