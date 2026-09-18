@@ -4,9 +4,6 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
-    private float gravity = -9.81f;
-
-    [SerializeField]
     private float walkSpeed = 4.0f;
 
     [SerializeField]
@@ -61,10 +58,10 @@ public class PlayerMove : MonoBehaviour
     {
         if (characterController.isGrounded && verticalVelocity < 0.0f)
         {
-            verticalVelocity = 0.0f;
+            verticalVelocity = -2.0f;
         }
 
-        verticalVelocity += gravity * Time.deltaTime;
+        verticalVelocity += Physics.gravity.y * Time.deltaTime;
     }
 
     // 플레이어가 보는 방향 기준 움직임

@@ -1,11 +1,12 @@
-using System;
 using UnityEngine;
 
 public class ItemDataController : MonoBehaviour
 {
+    private const string PLAYER_TAG = "Player";
     public static ItemDataController Instance { get; private set; }
 
-    public event Action<Item> OnItemSend;
+    [SerializeField]
+    private PlayerInventory playerInventory;
 
     private void Awake()
     {
@@ -16,10 +17,15 @@ public class ItemDataController : MonoBehaviour
         }
 
         Instance = this;
+
+        if(playerInventory == null)
+        {
+            playerInventory = GameObject.FindGameObjectWithTag(PLAYER_TAG).GetComponent<PlayerInventory>();
+        }
     }
 
-    public void SendItemData(Item item)
+    public bool TrySendItemData(Item item)
     {
-        OnItemSend?.Invoke(item);
+        return playerInventory.TryAddItem(item.itemData);
     }
 }

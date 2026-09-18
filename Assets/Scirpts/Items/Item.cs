@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour, IInteractable
+public abstract class Item : MonoBehaviour, IInteractable, IInteractText
 {
     public abstract ItemData itemData { get; }
 
@@ -8,10 +8,17 @@ public abstract class Item : MonoBehaviour, IInteractable
 
     public float InteractionDuration => 0.0f;
 
+    public string InteractionText => "줍기 : [E]";
+
     // 아이템 상호작용
     public void Interact()
     {
-        ItemDataController.Instance.SendItemData(this);
+        bool isAdded = ItemDataController.Instance.TrySendItemData(this);
+
+        if (isAdded)
+        {
+            PickUp();
+        }
     }
 
     public void PickUp()
